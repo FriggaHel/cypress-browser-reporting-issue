@@ -14,17 +14,7 @@ jobs:
 
       - name: PreInstalled Chrome
         run: |
-          dir C:\
-          dir "C:\Program Files\" ||  printf Failed
-          dir "C:\Program Files\Google\" ||  printf Failed
-          dir "C:\Program Files\Google\Chrome\" ||  printf Failed
-          dir "C:\Program Files\Google\Chrome\Application\" ||  printf Failed
-          dir "C:\Program Files (x86)\" ||  printf Failed
-          dir "C:\Program Files (x86)\Google\" ||  printf Failed
-          dir "C:\Program Files (x86)\Google\Chrome\" ||  printf Failed
-          dir "C:\Program Files (x86)\Google\Chrome\Application\" ||  printf Failed
-          Exit 0
-
+         (Get-Item "C:\Program Files\Google\Chrome\Application\chrome.exe").VersionInfo
 
       - name: Install Chromium
         run: |
