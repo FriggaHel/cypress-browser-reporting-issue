@@ -45,7 +45,14 @@ jobs:
       - name: PreInstalled Safari
         run: |
           mdls -name kMDItemVersion /Applications/Safari.app
+
+      - name: PreInstalled Chrome
+        run: |
           /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version
+
+      - name: Try to remove Chrome
+        run: |
+          sudo rm -rf /Applications/Google\ Chrome.app
 
       - name: Install Chromium
         run: |
