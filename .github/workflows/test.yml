@@ -18,11 +18,16 @@ jobs:
 
       - run: npm i
 
+      - name: PreInstalled Chrome
+        run: |
+          (Get-Item "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe").VersionInfo
+
+
       - name: Install Chromium
         run: |
           Invoke-WebRequest -URI "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win%2F1102884%2Fchrome-win.zip?generation=1675895984128047&alt=media" -OutFile "Chromium.zip"
           Expand-Archive .\Chromium.zip -DestinationPath C:\Chromium-1102884\
-          dir C:\Chromium-1102884\chrome-win\chrome.exe
+          (Get-Item "C:\Chromium-1102884\chrome-win\chrome.exe").VersionInfo
 
       - name: Run cypress
         run: |
@@ -32,6 +37,6 @@ jobs:
       - name: Archive video artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: actions.cy.js.mp4
+          name: videos.zip
           path: |
-            cypress/videos/actions.cy.js.mp4
+            cypress/videos/*.cy.js.mp4
