@@ -12,12 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - run: npm i
-
       - name: PreInstalled Chrome
         run: |
           dir C:\
@@ -37,6 +31,12 @@ jobs:
           Invoke-WebRequest -URI "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win%2F1102884%2Fchrome-win.zip?generation=1675895984128047&alt=media" -OutFile "Chromium.zip"
           Expand-Archive .\Chromium.zip -DestinationPath C:\Chromium-1102884\
           (Get-Item "C:\Chromium-1102884\chrome-win\chrome.exe").VersionInfo
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm i
 
       - name: Run cypress
         run: |
