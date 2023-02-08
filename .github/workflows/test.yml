@@ -20,7 +20,12 @@ jobs:
 
       - name: PreInstalled Chrome
         run: |
-          (Get-Item "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe").VersionInfo
+          dir C:\
+          dir C:\Program Files (x86)\
+          dir C:\Program Files (x86)\Google\
+          dir C:\Program Files (x86)\Google\Chrome\
+          dir C:\Program Files (x86)\Google\Chrome\Application\
+          Exit 0
 
 
       - name: Install Chromium
