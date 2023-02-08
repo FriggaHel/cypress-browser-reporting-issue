@@ -45,11 +45,12 @@ jobs:
       - name: PreInstalled Safari
         run: |
           mdls -name kMDItemVersion /Applications/Safari.app
+          /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version
 
       - name: Install Chromium
         run: |
           curl https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Mac%2F1102951%2Fchrome-mac.zip\?generation\=1675897116211926\&alt\=media > chromium-1102951.zip
-          unzip chromium-1102951.zip -d /tmp/chromium-1102951
+          unzip -qq chromium-1102951.zip -d /tmp/chromium-1102951
           /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium --version
 
       - uses: actions/setup-node@v3
