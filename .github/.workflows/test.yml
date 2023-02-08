@@ -1,0 +1,37 @@
+name: cypress on windows
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm i
+
+      - name: Install Chromium
+        run: |
+          Invoke-WebRequest -URI "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win%2F1102884%2Fchrome-win.zip?generation=1675895984128047&alt=media" -OutFile "Chromium.zip"
+          Expand-Archive .\Chromium.zip -DestinationPath C:\Chromium-1102884\
+          dir C:\Chromium-1102884\chrome-win\chrome.exe
+
+      - name: Run cypress
+        run: |
+          npx cypress run --headed -b C:\Chromium-1102884\chrome-win\chrome.exe:chrome
+
+
+      - name: Archive video artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: actions.cy.js.mp4
+          path: |
+            cypress/videos/actions.cy.js.mp4
