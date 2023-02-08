@@ -50,9 +50,14 @@ jobs:
         run: |
           /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version
 
-      - name: Try to remove Chrome
+      - name: PreInstalled Firefox
+        run: |
+          /Applications/Firefox.app/Contents/MacOS/firefox --version
+
+      - name: Try to remove Chrome / Firefox
         run: |
           sudo rm -rf /Applications/Google\ Chrome.app
+          sudo rm -rf /Applications/Firefox.app
 
       - name: Install Chromium
         run: |
