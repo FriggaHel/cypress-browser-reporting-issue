@@ -6,11 +6,10 @@ on:
       - main
 
 jobs:
-  main:
+  main-windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: PreInstalled Chrome
         run: |
@@ -32,10 +31,41 @@ jobs:
         run: |
           npx cypress run --headed -b C:\Chromium-1102884\chrome-win\chrome.exe:chrome
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos-windows
+          path: |
+            cypress/videos/*.cy.js.mp4
+
+  main-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: PreInstalled Safari
+        run: |
+          mdls -name kMDItemVersion /Applications/Safari.app
+
+      - name: Install Chromium
+        run: |
+          curl https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Mac%2F1102951%2Fchrome-mac.zip\?generation\=1675897116211926\&alt\=media > chromium-1102951.zip
+          unzip chromium-1102951.zip -d /tmp/chromium-1102951
+          /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium --version
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm i
+
+      - name: Run cypress
+        run: |
+          npx cypress run --headed -b /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium
+
 
       - name: Archive video artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: videos.zip
+          name: videos-macos
           path: |
             cypress/videos/*.cy.js.mp4
