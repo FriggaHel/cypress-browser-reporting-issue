@@ -15,14 +15,14 @@ jobs:
       - name: PreInstalled Chrome
         run: |
           dir C:\
-          dir "C:\Program Files\"
-          dir "C:\Program Files\Google\"
-          dir "C:\Program Files\Google\Chrome\"
-          dir "C:\Program Files\Google\Chrome\Application\"
-          dir "C:\Program Files (x86)\"
-          dir "C:\Program Files (x86)\Google\"
-          dir "C:\Program Files (x86)\Google\Chrome\"
-          dir "C:\Program Files (x86)\Google\Chrome\Application\"
+          dir "C:\Program Files\" ||  printf Failed
+          dir "C:\Program Files\Google\" ||  printf Failed
+          dir "C:\Program Files\Google\Chrome\" ||  printf Failed
+          dir "C:\Program Files\Google\Chrome\Application\" ||  printf Failed
+          dir "C:\Program Files (x86)\" ||  printf Failed
+          dir "C:\Program Files (x86)\Google\" ||  printf Failed
+          dir "C:\Program Files (x86)\Google\Chrome\" ||  printf Failed
+          dir "C:\Program Files (x86)\Google\Chrome\Application\" ||  printf Failed
           Exit 0
 
 
