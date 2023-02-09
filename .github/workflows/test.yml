@@ -1,4 +1,4 @@
-name: cypress on windows
+name: cypress@12
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
   #       with:
   #         node-version: 16
 
-  #     - run: npm i
+  #     - run: npm i cypress@12
 
   #     - name: Run cypress
   #       run: |
@@ -65,12 +65,13 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm i
+      - run: npm i cypress@12
 
       - name: Run cypress
         run: |
           # Stop NotificationCenter
-          launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist && killall NotificationCenter
+          sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+          sudo killall NotificationCenter
 
           # Record Screen
           sudo screencapture -V120 /tmp/screen-recording.mov &
@@ -80,12 +81,13 @@ jobs:
           npx cypress run --headed -b /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium
 
           # Wait for end of recording
+          kill -INT ${PID}
           wait ${PID}
 
       - name: Archive video artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: videos-macos
+          name: videos-macos-cypress12
           path: |
             cypress/videos/*.cy.js.mp4
             /tmp/screen-recording.mov
