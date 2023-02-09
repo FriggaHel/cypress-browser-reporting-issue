@@ -70,7 +70,7 @@ jobs:
       - name: Run cypress
         run: |
           # Stop NotificationCenter
-          sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+          launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
           sudo killall NotificationCenter
 
           # Record Screen
@@ -81,7 +81,7 @@ jobs:
           npx cypress run --headed -b /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium
 
           # Wait for end of recording
-          kill -INT ${PID}
+          sudo kill -INT ${PID}
           wait ${PID}
 
       - name: Archive video artifacts
