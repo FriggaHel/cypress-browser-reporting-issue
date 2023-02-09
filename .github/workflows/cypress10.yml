@@ -1,4 +1,4 @@
-name: cypress@12
+name: cypress@10
 
 on:
   push:
@@ -6,36 +6,36 @@ on:
       - main
 
 jobs:
-  # main-windows:
-  #   runs-on: windows-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  main-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: PreInstalled Chrome
-  #       run: |
-  #        (Get-Item "C:\Program Files\Google\Chrome\Application\chrome.exe").VersionInfo
+      - name: PreInstalled Chrome
+        run: |
+         (Get-Item "C:\Program Files\Google\Chrome\Application\chrome.exe").VersionInfo
 
-  #     - name: Install Chromium
-  #       run: |
-  #         Invoke-WebRequest -URI "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win%2F1102884%2Fchrome-win.zip?generation=1675895984128047&alt=media" -OutFile "Chromium.zip"
-  #         Expand-Archive .\Chromium.zip -DestinationPath C:\Chromium-1102884\
-  #         (Get-Item "C:\Chromium-1102884\chrome-win\chrome.exe").VersionInfo
+      - name: Install Chromium
+        run: |
+          Invoke-WebRequest -URI "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win%2F1102884%2Fchrome-win.zip?generation=1675895984128047&alt=media" -OutFile "Chromium.zip"
+          Expand-Archive .\Chromium.zip -DestinationPath C:\Chromium-1102884\
+          (Get-Item "C:\Chromium-1102884\chrome-win\chrome.exe").VersionInfo
 
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-  #     - run: npm i cypress@12
+      - run: npm i cypress@10
 
-  #     - name: Run cypress
-  #       run: |
-  #         npx cypress run --headed -b C:\Chromium-1102884\chrome-win\chrome.exe:chrome
+      - name: Run cypress
+        run: |
+          npx cypress run --headed -b C:\Chromium-1102884\chrome-win\chrome.exe:chrome
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: videos-windows
-  #         path: |
-  #           cypress/videos/*.cy.js.mp4
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos-windows-cypress10
+          path: |
+            cypress/videos/*.cy.js.mp4
 
   main-macos:
     runs-on: macos-latest
@@ -65,16 +65,11 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm i cypress@12
+      - run: npm i cypress@10
 
       - name: Run cypress
         run: |
-          # Stop NotificationCenter
-          launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
-          sudo killall NotificationCenter
-
-          # Record Screen
-          sudo screencapture -V120 /tmp/screen-recording.mov &
+          sudo screencapture -V100 /tmp/screen-recording.mov &
           PID=${!}
 
           # Launch Cypress
@@ -87,7 +82,7 @@ jobs:
       - name: Archive video artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: videos-macos-cypress12
+          name: videos-macos-cypress10
           path: |
             cypress/videos/*.cy.js.mp4
             /tmp/screen-recording.mov
