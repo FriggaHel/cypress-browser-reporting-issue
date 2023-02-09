@@ -74,7 +74,7 @@ jobs:
           PID=${!}
 
           # Launch Cypress
-          DEBUG=cypress:* npx cypress run --headed -b /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium
+          CYPRESS_VERIFY_TIMEOUT=120000 DEBUG=cypress:* npx cypress run --headed -b /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium
 
           # Wait for end of recording
           sudo kill -INT ${PID}
