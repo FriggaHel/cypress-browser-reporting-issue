@@ -42,24 +42,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: PreInstalled Safari
+      - name: Check available browsers
         run: |
           mdls -name kMDItemVersion /Applications/Safari.app
-
-      - name: PreInstalled Chrome
-        run: |
           /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version
-
-      - name: PreInstalled Firefox
-        run: |
           /Applications/Firefox.app/Contents/MacOS/firefox --version
+          /Applications/Microsoft\ Edge.app/Contents/MacOS/Microsoft\ Edge --version
 
-      - name: Try to remove Chrome / Firefox
+      - name: Remove Chrome / Firefox / Edge
         run: |
           sudo rm -rf /Applications/Google\ Chrome.app
           sudo rm -rf /Applications/Firefox.app
+          sudo rm -rf /Applications/Microsoft\ Edge.app
 
-      - name: Install Chromium
+      - name: Install Chromium in non-standard location
         run: |
           curl https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Mac%2F1102951%2Fchrome-mac.zip\?generation\=1675897116211926\&alt\=media > chromium-1102951.zip
           unzip -qq chromium-1102951.zip -d /tmp/chromium-1102951
