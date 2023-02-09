@@ -33,7 +33,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: videos-windows
+          name: videos-windows-cypress11
           path: |
             cypress/videos/*.cy.js.mp4
 
@@ -79,10 +79,12 @@ jobs:
           sudo kill -INT ${PID}
           wait ${PID}
 
+          cp /tmp/screen-recording.mov cypress/videos/
+
       - name: Archive video artifacts
         uses: actions/upload-artifact@v3
         with:
           name: videos-macos-cypress11
           path: |
             cypress/videos/*.cy.js.mp4
-            /tmp/screen-recording.mov
+            cypress/videos/*.mov
