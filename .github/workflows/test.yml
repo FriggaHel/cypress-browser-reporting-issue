@@ -69,8 +69,10 @@ jobs:
 
       - name: Run cypress
         run: |
+          sudo screencapture -V60 /tmp/screen-recording.mov &
+          PID=${!}
           npx cypress run --headed -b /tmp/chromium-1102951/chrome-mac/Chromium.app/Contents/MacOS/Chromium
-
+          wait ${PID}
 
       - name: Archive video artifacts
         uses: actions/upload-artifact@v3
@@ -78,3 +80,4 @@ jobs:
           name: videos-macos
           path: |
             cypress/videos/*.cy.js.mp4
+            /tmp/screen-recording.mov
