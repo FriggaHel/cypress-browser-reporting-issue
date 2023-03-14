@@ -44,7 +44,7 @@ async function main() {
   await wait (5 * 1000);
   const first = await Promise.race([
     wait(3 * 60 * 1000),
-    runCypress('npm', ['run', 'cypress']),
+    runCypress('C:\\hostedtoolcache\\windows\\node\\16.19.1\\x64\bin\\npm', ['run', 'cypress']),
   ]);
   stopFfmpeg(pid);
   await wait (5 * 1000);
