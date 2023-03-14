@@ -26,7 +26,7 @@ function wait(duration) {
 async function main() {
   const first = await Promise.race([
     wait(3 * 60 * 1000),
-    runCypress('npx', ['cypress', 'run', '--headed', '-b', 'webkit']),
+    runCypress('cypress', ['run', '--headed', '-b', 'webkit']),
   ]);
 
   console.log(`Result: ${first}`);
