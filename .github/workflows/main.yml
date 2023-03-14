@@ -5,6 +5,10 @@ on:
 
 jobs:
   main-windows:
+    strategy:
+      matrix:
+        cypress: [12.3.0, 12.6.0, 12.7.0]
+        webkit: [1.29.2, 1.31.1, 1.31.2]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,14 +17,8 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm i cypress@12.6.0 playwright-webkit@1.31.1
+      - run: npm i cypress@${{ matrix.cypress }} playwright-webkit@${{ matrix.webkit }}
 
       - name: Run cypress
         run: |
           node cypress-runner.js
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: videos-windows-cypress12
-          path: |
-            cypress/videos/*.cy.js.mp4
