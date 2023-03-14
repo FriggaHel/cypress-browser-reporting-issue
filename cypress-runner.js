@@ -1,16 +1,16 @@
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
-function runCypress(cmd) {
+function runCypress(cmd, args) {
   return new Promise(function (resolve) {
-    const p = exec(cmd);
-    p.on('exit', function (exitCode) {
+    const p = spawn(cmd, args);
+    p.on('close', function (exitCode) {
       resolve(`exitCode: ${exitCode}`);
     });
-    p.on('stdout', function (data) {
-      console.log(data);
+    p.stdout.on('data', function (data) {
+      process.stdout.write(data.toString());
     })
-    p.on('stderr', function (data) {
-      console.log(data);
+    p.stderr.on('data', function (data) {
+      process.stderr.write(data.toString());
     })
   });
 }
@@ -25,8 +25,8 @@ function wait(duration) {
 
 async function main() {
   const first = await Promise.race([
-    wait(5 * 60 * 1000),
-    runCypress('npx cypress run --headed -b webkit'),
+    wait(3 * 60 * 1000),
+    runCypress('npx', ['cypress', 'run', '--headed', '-b', 'webkit']),
   ]);
 
   console.log(`Result: ${first}`);
