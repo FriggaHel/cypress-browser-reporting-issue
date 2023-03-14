@@ -23,7 +23,7 @@ jobs:
       - uses: FedericoCarboni/setup-ffmpeg@v2
         id: setup-ffmpeg
 
-      - run: (Get-Command npm).Path
+      - run: ffmpeg -list_devices true -f dshow -i dummy
 
       - run: npm i cypress@${{ matrix.cypress }} playwright-webkit@${{ matrix.webkit }}
 
