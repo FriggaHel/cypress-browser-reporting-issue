@@ -23,11 +23,31 @@ function wait(duration) {
   });
 }
 
+function startFfmpeg() {
+  const ffmpeg = spawn('ffmpeg', ['-f', 'gdigrab', '-framerate', '30', '-i', 'desktop', '-o', 'recording.mp4']);
+  ffmpeg.stdout.on('data', function (data) {
+    process.stdout.write(data.toString());
+  })
+  ffmpeg.stderr.on('data', function (data) {
+    process.stderr.write(data.toString());
+  })
+  return ffmpeg.pid();
+}
+
+function stopFfmpeg(pid) {
+  process.kill(pid, 'SIGINT');
+}
+
 async function main() {
+  const pid = startFfmpeg();
+
+  await wait (5 * 1000);
   const first = await Promise.race([
     wait(3 * 60 * 1000),
     runCypress('cypress', ['run', '--headed', '-b', 'webkit']),
   ]);
+  stopFfmpeg(pid);
+  await wait (5 * 1000);
 
   console.log(`Result: ${first}`);
   process.exit(0);

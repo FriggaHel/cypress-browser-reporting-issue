@@ -20,8 +20,17 @@ jobs:
         with:
           node-version: 16
 
+      - uses: FedericoCarboni/setup-ffmpeg@v2
+        id: setup-ffmpeg
+
       - run: npm i -g cypress@${{ matrix.cypress }} playwright-webkit@${{ matrix.webkit }}
 
       - name: run cypress with cypress@${{ matrix.cypress }} / playwright-webkit@${{ matrix.webkit }}
         run: |
           node cypress-runner.js
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos-windows-${{ matrix.cypress }}-${{ matrix.webkit }}
+          path: |
+            recording.mp4
