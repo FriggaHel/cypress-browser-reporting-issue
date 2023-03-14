@@ -8,11 +8,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # cypress: [12.6.0]
-        # webkit: [1.31.1]
+        cypress: [12.6.0]
+        webkit: [1.31.1]
         os: [windows, macos]
-        cypress: [12.3.0, 12.6.0, 12.7.0]
-        webkit: [1.29.2, 1.31.1, 1.31.2]
+        # cypress: [12.3.0, 12.6.0, 12.7.0]
+        # webkit: [1.29.2, 1.31.1, 1.31.2]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,18 +21,8 @@ jobs:
         with:
           node-version: 16
 
-      - uses: FedericoCarboni/setup-ffmpeg@v2
-        id: setup-ffmpeg
-
       - run: npm i cypress@${{ matrix.cypress }} playwright-webkit@${{ matrix.webkit }}
 
       - name: run cypress with cypress@${{ matrix.cypress }} / playwright-webkit@${{ matrix.webkit }}
         run: |
           node cypress-runner.js
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: videos-windows-${{ matrix.cypress }}-${{ matrix.webkit }}
-          path: |
-            cypress/videos/*.mp4
-            recording.mp4
