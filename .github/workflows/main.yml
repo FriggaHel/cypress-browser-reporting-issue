@@ -6,7 +6,6 @@ on:
 jobs:
   main-windows:
     runs-on: windows-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
 
@@ -18,7 +17,7 @@ jobs:
 
       - name: Run cypress
         run: |
-          npx cypress run --headed -b webkit
+          node cypress-runner.js
 
       - uses: actions/upload-artifact@v3
         with:
