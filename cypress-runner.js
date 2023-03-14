@@ -24,7 +24,7 @@ function wait(duration) {
 }
 
 function startFfmpeg() {
-  const ffmpeg = spawn('ffmpeg', ['-f', 'gdigrab', '-framerate', '30', '-i', 'desktop', '-o', 'recording.mp4']);
+  const ffmpeg = spawn('ffmpeg', ['-f', 'gdigrab', '-framerate', '30', '-i', 'desktop', 'recording.mp4']);
   ffmpeg.stdout.on('data', function (data) {
     process.stdout.write(data.toString());
   })
