@@ -39,6 +39,7 @@ function stopFfmpeg(pid) {
 }
 
 async function main() {
+  console.log(process.env.PATH);
   const pid = startFfmpeg();
 
   await wait (5 * 1000);
