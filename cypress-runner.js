@@ -31,7 +31,7 @@ function startFfmpeg() {
   ffmpeg.stderr.on('data', function (data) {
     process.stderr.write(data.toString());
   })
-  return ffmpeg.pid();
+  return ffmpeg.pid;
 }
 
 function stopFfmpeg(pid) {
