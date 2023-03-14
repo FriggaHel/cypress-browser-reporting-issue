@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "cypress": "cypress --headed -b webkit"
+    "run.cypress": "cypress --headed -b webkit"
   }
 }

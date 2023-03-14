@@ -24,7 +24,7 @@ function wait(duration) {
 }
 
 function startFfmpeg() {
-  const ffmpeg = spawn('ffmpeg', ['-f', 'gdigrab', '-framerate', '30', '-i', 'desktop', 'recording.mp4']);
+  const ffmpeg = spawn('ffmpeg', ['-init_hw_device', 'd3d11va', '-filter_complex', 'ddagrab=0', '-c:v', 'h264_nvenc', '-cq:v', '20', 'recording.mp4']);
   ffmpeg.stdout.on('data', function (data) {
     process.stdout.write(data.toString());
   })
@@ -45,7 +45,7 @@ async function main() {
   await wait (5 * 1000);
   const first = await Promise.race([
     wait(3 * 60 * 1000),
-    runCypress('C:\\hostedtoolcache\\windows\\node\\16.19.1\\x64\\npm.cmd', ['run', 'cypress']),
+    runCypress('C:\\hostedtoolcache\\windows\\node\\16.19.1\\x64\\npm.cmd', ['run', 'run.cypress']),
   ]);
   stopFfmpeg(pid);
   await wait (5 * 1000);
