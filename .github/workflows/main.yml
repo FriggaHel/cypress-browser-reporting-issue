@@ -1,0 +1,29 @@
+name: cypress@12.6.0+playwright-webkit@1.31.1
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  main-windows:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm i cypress@12.6.0 playwright-webkit@1.31.1
+
+      - name: Run cypress
+        run: |
+          npx cypress run --headed -b webkit
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos-windows-cypress12
+          path: |
+            cypress/videos/*.cy.js.mp4
