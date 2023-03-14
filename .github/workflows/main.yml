@@ -23,8 +23,6 @@ jobs:
       - uses: FedericoCarboni/setup-ffmpeg@v2
         id: setup-ffmpeg
 
-      - run: ffmpeg -list_devices true -f dshow -i dummy
-
       - run: npm i cypress@${{ matrix.cypress }} playwright-webkit@${{ matrix.webkit }}
 
       - name: run cypress with cypress@${{ matrix.cypress }} / playwright-webkit@${{ matrix.webkit }}
@@ -35,4 +33,5 @@ jobs:
         with:
           name: videos-windows-${{ matrix.cypress }}-${{ matrix.webkit }}
           path: |
+            cypress/videos/*.mp4
             recording.mp4
