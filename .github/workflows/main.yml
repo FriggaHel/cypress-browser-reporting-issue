@@ -19,6 +19,6 @@ jobs:
 
       - run: npm i cypress@${{ matrix.cypress }} playwright-webkit@${{ matrix.webkit }}
 
-      - name: Run cypress
+      - name: run cypress with cypress@${{ matrix.cypress }} / playwright-webkit@${{ matrix.webkit }}
         run: |
           node cypress-runner.js
